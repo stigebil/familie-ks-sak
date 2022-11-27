@@ -127,7 +127,7 @@ class BehandlingServiceTest {
         } returns emptyList()
         every {
             andelerTilkjentYtelseOgEndreteUtbetalingerService
-                .finnEndreteUtbetalingerMedAndelerIHenholdTilVilkårsvurdering(behandling.id)
+                .finnEndreteUtbetalingerMedAndelerTilkjentYtelse(behandling.id)
         } returns emptyList()
     }
 
