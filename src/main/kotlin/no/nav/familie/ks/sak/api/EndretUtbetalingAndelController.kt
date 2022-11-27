@@ -96,7 +96,7 @@ class EndretUtbetalingAndelController(
 
         val behandling = behandlingService.hentBehandling(behandlingId)
 
-        endretUtbetalingAndelService.opprettTomEndretUtbetalingAndelOgOppdaterTilkjentYtelse(behandling)
+        endretUtbetalingAndelService.opprettTomEndretUtbetalingAndel(behandling)
 
         tilbakestillBehandlingService
             .tilbakestillBehandlingTilBehandlingsresultat(behandlingId = behandling.id)

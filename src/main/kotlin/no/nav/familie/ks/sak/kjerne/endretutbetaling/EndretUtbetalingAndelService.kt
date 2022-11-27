@@ -127,13 +127,9 @@ class EndretUtbetalingAndelService(
     }
 
     @Transactional
-    fun opprettTomEndretUtbetalingAndelOgOppdaterTilkjentYtelse(
+    fun opprettTomEndretUtbetalingAndel(
         behandling: Behandling
-    ) = endretUtbetalingAndelRepository.save(
-        EndretUtbetalingAndel(
-            behandlingId = behandling.id
-        )
-    )
+    ) = endretUtbetalingAndelRepository.save(EndretUtbetalingAndel(behandlingId = behandling.id))
 }
 
 interface EndretUtbetalingAndelerOppdatertAbonnent {
