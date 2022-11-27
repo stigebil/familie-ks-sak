@@ -7,10 +7,10 @@ import no.nav.familie.ks.sak.common.util.MånedPeriode
 import no.nav.familie.ks.sak.common.util.YearMonthConverter
 import no.nav.familie.ks.sak.common.util.erDagenFør
 import no.nav.familie.ks.sak.common.util.overlapperHeltEllerDelvisMed
-import no.nav.familie.ks.sak.kjerne.brev.begrunnelser.Begrunnelse
-import no.nav.familie.ks.sak.kjerne.brev.begrunnelser.StandardbegrunnelseListConverter
 import no.nav.familie.ks.sak.common.util.sisteDagIInneværendeMåned
 import no.nav.familie.ks.sak.kjerne.beregning.EndretUtbetalingAndelMedAndelerTilkjentYtelse
+import no.nav.familie.ks.sak.kjerne.brev.begrunnelser.Begrunnelse
+import no.nav.familie.ks.sak.kjerne.brev.begrunnelser.StandardbegrunnelseListConverter
 import no.nav.familie.ks.sak.kjerne.brev.domene.BrevEndretAndel
 import no.nav.familie.ks.sak.kjerne.personopplysninggrunnlag.domene.Person
 import java.math.BigDecimal
@@ -115,7 +115,6 @@ data class EndretUtbetalingAndel(
     fun erÅrsakDeltBosted() = this.årsak == Årsak.DELT_BOSTED
 }
 
-
 fun EndretUtbetalingAndelMedAndelerTilkjentYtelse.tilEndretUtbetalingAndelDto() =
     EndretUtbetalingAndelDto(
         id = this.id,
@@ -152,9 +151,8 @@ fun hentPersonerForEtterEndretUtbetalingsperiode(
 ) = brevEndretAndeler.filter { brevEndretAndel ->
     brevEndretAndel.periode.tom.sisteDagIInneværendeMåned()
         .erDagenFør(fom) &&
-            endringsaarsaker.contains(brevEndretAndel.årsak)
+        endringsaarsaker.contains(brevEndretAndel.årsak)
 }.map { it.personIdent }
-
 
 enum class Årsak(val visningsnavn: String) {
     DELT_BOSTED("Delt bosted"),

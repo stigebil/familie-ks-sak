@@ -11,7 +11,7 @@ fun beregnGyldigTomIFremtiden(
 ): YearMonth? {
     val førsteEndringEtterDenneEndringen = andreEndredeAndelerPåBehandling.filter {
         it.fom?.isAfter(endretUtbetalingAndel.fom) == true &&
-                it.person == endretUtbetalingAndel.person
+            it.person == endretUtbetalingAndel.person
     }.sortedBy { it.fom }.firstOrNull()
 
     return if (førsteEndringEtterDenneEndringen != null) {

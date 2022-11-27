@@ -1,6 +1,5 @@
 package no.nav.familie.ks.sak.api
 
-
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.ks.sak.api.dto.BehandlingResponsDto
 import no.nav.familie.ks.sak.api.dto.EndretUtbetalingAndelDto
