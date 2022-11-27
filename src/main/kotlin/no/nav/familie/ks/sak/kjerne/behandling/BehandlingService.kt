@@ -98,7 +98,7 @@ class BehandlingService(
         }
 
         val endreteUtbetalingerMedAndeler = andelerTilkjentYtelseOgEndreteUtbetalingerService
-            .finnEndreteUtbetalingerMedAndelerTilkjentYtelse(behandlingId)
+            .finnEndreteUtbetalingerMedAndelerIHenholdTilVilkårsvurdering(behandlingId)
 
         return BehandlingMapper.lagBehandlingRespons(
             behandling,
