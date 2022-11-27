@@ -46,6 +46,10 @@ class AndelerTilkjentYtelseOgEndreteUtbetalingerService(
             }
         }
 
+    fun finnEndreteUtbetalingerMedAndelerIHenholdTilVilkårsvurdering(behandlingId: Long) =
+        endretUtbetalingAndelRepository.hentEndretUtbetalingerForBehandling(behandlingId)
+            .map { EndretUtbetalingAndelMedAndelerTilkjentYtelse(it, emptyList()) }
+
     private fun lagKombinator(behandlingId: Long) = AndelTilkjentYtelseOgEndreteUtbetalingerKombinator(
         andelerTilkjentYtelse = andelTilkjentYtelseRepository.finnAndelerTilkjentYtelseForBehandling(behandlingId),
         endretUtbetalingAndeler = endretUtbetalingAndelRepository.hentEndretUtbetalingerForBehandling(behandlingId)
