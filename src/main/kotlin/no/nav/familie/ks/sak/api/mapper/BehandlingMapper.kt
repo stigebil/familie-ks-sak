@@ -17,6 +17,7 @@ import no.nav.familie.ks.sak.kjerne.arbeidsfordeling.domene.ArbeidsfordelingPåB
 import no.nav.familie.ks.sak.kjerne.behandling.domene.Behandling
 import no.nav.familie.ks.sak.kjerne.behandling.steg.BehandlingStegStatus
 import no.nav.familie.ks.sak.kjerne.behandling.steg.vilkårsvurdering.domene.PersonResultat
+import no.nav.familie.ks.sak.kjerne.beregning.EndretUtbetalingAndelMedAndelerTilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.domene.AndelTilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.domene.slåSammenBack2BackAndelsperioderMedSammeBeløp
 import no.nav.familie.ks.sak.kjerne.personopplysninggrunnlag.domene.Person
@@ -33,7 +34,8 @@ object BehandlingMapper {
         personResultater: List<PersonResultat>?,
         personerMedAndelerTilkjentYtelse: List<PersonerMedAndelerResponsDto>,
         utbetalingsperioder: List<UtbetalingsperiodeResponsDto>,
-        vedtak: VedtakDto?
+        vedtak: VedtakDto?,
+        endreteUtbetalingerMedAndeler: List<EndretUtbetalingAndelMedAndelerTilkjentYtelse>
     ) =
         BehandlingResponsDto(
             behandlingId = behandling.id,
@@ -62,7 +64,8 @@ object BehandlingMapper {
                 ?.let { BehandlingPåVentResponsDto(it.frist!!, it.årsak!!) },
             personerMedAndelerTilkjentYtelse = personerMedAndelerTilkjentYtelse,
             utbetalingsperioder = utbetalingsperioder,
-            vedtak = vedtak
+            vedtak = vedtak,
+            endretUtbetalingAndeler = endreteUtbetalingerMedAndeler
         )
 
     private fun lagArbeidsfordelingRespons(arbeidsfordelingPåBehandling: ArbeidsfordelingPåBehandling) =

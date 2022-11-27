@@ -97,6 +97,9 @@ class BehandlingService(
             )
         }
 
+        val endreteUtbetalingerMedAndeler = andelerTilkjentYtelseOgEndreteUtbetalingerService
+            .finnEndreteUtbetalingerMedAndelerTilkjentYtelse(behandlingId)
+
         return BehandlingMapper.lagBehandlingRespons(
             behandling,
             arbeidsfordelingPåBehandling,
@@ -105,7 +108,8 @@ class BehandlingService(
             personResultater,
             personerMedAndelerTilkjentYtelse,
             utbetalingsperioder,
-            vedtak
+            vedtak,
+            endreteUtbetalingerMedAndeler
         )
     }
 

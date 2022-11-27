@@ -9,6 +9,7 @@ import no.nav.familie.ks.sak.kjerne.behandling.domene.BehandlingÅrsak
 import no.nav.familie.ks.sak.kjerne.behandling.steg.BehandlingSteg
 import no.nav.familie.ks.sak.kjerne.behandling.steg.BehandlingStegStatus
 import no.nav.familie.ks.sak.kjerne.behandling.steg.VenteÅrsak
+import no.nav.familie.ks.sak.kjerne.beregning.EndretUtbetalingAndelMedAndelerTilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.domene.YtelseType
 import no.nav.familie.ks.sak.kjerne.personopplysninggrunnlag.domene.Målform
 import no.nav.familie.ks.sak.kjerne.personopplysninggrunnlag.domene.PersonType
@@ -35,7 +36,7 @@ data class BehandlingResponsDto(
     val utbetalingsperioder: List<UtbetalingsperiodeResponsDto>,
     val personerMedAndelerTilkjentYtelse: List<PersonerMedAndelerResponsDto>,
     val vedtak: VedtakDto?,
-    val endretUtbetalingAndeler: List<Any> = emptyList(), // TODO implementeres ved behandlingsresultat
+    val endretUtbetalingAndeler: List<EndretUtbetalingAndelMedAndelerTilkjentYtelse>, // TODO implementeres ved behandlingsresultat
     val kompetanser: List<Any> = emptyList(), // TODO implementeres ved EØS
     val utenlandskePeriodebeløp: List<Any> = emptyList(), // TODO implementeres ved EØS
     val valutakurser: List<Any> = emptyList() // TODO implementeres ved EØS,
