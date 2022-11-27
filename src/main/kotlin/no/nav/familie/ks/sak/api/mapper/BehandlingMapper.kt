@@ -5,6 +5,7 @@ import no.nav.familie.ks.sak.api.dto.ArbeidsfordelingResponsDto
 import no.nav.familie.ks.sak.api.dto.BehandlingPåVentResponsDto
 import no.nav.familie.ks.sak.api.dto.BehandlingResponsDto
 import no.nav.familie.ks.sak.api.dto.BehandlingStegTilstandResponsDto
+import no.nav.familie.ks.sak.api.dto.EndretUtbetalingAndelDto
 import no.nav.familie.ks.sak.api.dto.PersonResponsDto
 import no.nav.familie.ks.sak.api.dto.PersonerMedAndelerResponsDto
 import no.nav.familie.ks.sak.api.dto.SøknadDto
@@ -17,7 +18,6 @@ import no.nav.familie.ks.sak.kjerne.arbeidsfordeling.domene.ArbeidsfordelingPåB
 import no.nav.familie.ks.sak.kjerne.behandling.domene.Behandling
 import no.nav.familie.ks.sak.kjerne.behandling.steg.BehandlingStegStatus
 import no.nav.familie.ks.sak.kjerne.behandling.steg.vilkårsvurdering.domene.PersonResultat
-import no.nav.familie.ks.sak.kjerne.beregning.EndretUtbetalingAndelMedAndelerTilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.domene.AndelTilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.domene.slåSammenBack2BackAndelsperioderMedSammeBeløp
 import no.nav.familie.ks.sak.kjerne.personopplysninggrunnlag.domene.Person
@@ -35,7 +35,7 @@ object BehandlingMapper {
         personerMedAndelerTilkjentYtelse: List<PersonerMedAndelerResponsDto>,
         utbetalingsperioder: List<UtbetalingsperiodeResponsDto>,
         vedtak: VedtakDto?,
-        endreteUtbetalingerMedAndeler: List<EndretUtbetalingAndelMedAndelerTilkjentYtelse>
+        endreteUtbetalingerMedAndeler: List<EndretUtbetalingAndelDto>
     ) =
         BehandlingResponsDto(
             behandlingId = behandling.id,
