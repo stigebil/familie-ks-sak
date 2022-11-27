@@ -1,7 +1,7 @@
 no.nav.security.jwt:
   issuer:
     azuread:
-      discoveryurl: http://127.0.0.1:${mock-oauth2-server.port}/azuread/.well-known/openid-configuration
+      discoveryurl: http://localhost:${mock-oauth2-server.port}/azuread/.well-known/openid-configuration
       acceptedaudience: familie-ks-sak-test
       cookiename: localhost-idtoken
   client:

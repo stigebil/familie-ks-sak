@@ -56,12 +56,8 @@ import no.nav.familie.ks.sak.kjerne.endretutbetaling.domene.EndretUtbetalingAnde
 import no.nav.familie.ks.sak.kjerne.beregning.domene.TilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.domene.YtelseType
 import no.nav.familie.ks.sak.kjerne.beregning.domene.maksBeløp
-<<<<<<< Updated upstream
-import no.nav.familie.ks.sak.kjerne.beregning.domene.Årsak
 import no.nav.familie.ks.sak.kjerne.brev.begrunnelser.Begrunnelse
-=======
 import no.nav.familie.ks.sak.kjerne.endretutbetaling.domene.Årsak
->>>>>>> Stashed changes
 import no.nav.familie.ks.sak.kjerne.fagsak.domene.Fagsak
 import no.nav.familie.ks.sak.kjerne.personident.Aktør
 import no.nav.familie.ks.sak.kjerne.personident.Personident
