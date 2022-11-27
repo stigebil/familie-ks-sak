@@ -24,8 +24,8 @@ import no.nav.familie.ks.sak.kjerne.behandling.domene.Behandlingsresultat.INNVIL
 import no.nav.familie.ks.sak.kjerne.behandling.domene.Behandlingsresultat.OPPHØRT
 import no.nav.familie.ks.sak.kjerne.beregning.AndelTilkjentYtelseMedEndreteUtbetalinger
 import no.nav.familie.ks.sak.kjerne.beregning.EndretUtbetalingAndelMedAndelerTilkjentYtelse
-import no.nav.familie.ks.sak.kjerne.beregning.EndretUtbetalingAndelValidator.validerAtAlleOpprettedeEndringerErUtfylt
-import no.nav.familie.ks.sak.kjerne.beregning.EndretUtbetalingAndelValidator.validerAtEndringerErTilknyttetAndelTilkjentYtelse
+import no.nav.familie.ks.sak.kjerne.endretutbetaling.EndretUtbetalingAndelValidator.validerAtAlleOpprettedeEndringerErUtfylt
+import no.nav.familie.ks.sak.kjerne.endretutbetaling.EndretUtbetalingAndelValidator.validerAtEndringerErTilknyttetAndelTilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.TilkjentYtelseValidator
 import no.nav.familie.ks.sak.kjerne.beregning.domene.TilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.personident.Aktør

@@ -153,6 +153,9 @@ class VilkårsvurderingService(
         // Det er ikke nødvendig å save Vilkårresultatene eksplitt pga @Transactional
         eksisterendeVilkårResultater.clear()
         eksisterendeVilkårResultater.addAll(nyeOgEndredeVilkårResultater)
+
+
+        stegService.utførSteg()
     }
 
     @Transactional

@@ -18,7 +18,7 @@ import no.nav.familie.ks.sak.kjerne.behandling.steg.vilkårsvurdering.domene.Per
 import no.nav.familie.ks.sak.kjerne.behandling.steg.vilkårsvurdering.domene.Vilkårsvurdering
 import no.nav.familie.ks.sak.kjerne.behandling.steg.vilkårsvurdering.domene.VilkårsvurderingRepository
 import no.nav.familie.ks.sak.kjerne.beregning.domene.AndelTilkjentYtelseRepository
-import no.nav.familie.ks.sak.kjerne.beregning.domene.EndretUtbetalingAndelRepository
+import no.nav.familie.ks.sak.kjerne.endretutbetaling.domene.EndretUtbetalingAndelRepository
 import no.nav.familie.ks.sak.kjerne.beregning.domene.maksBeløp
 import no.nav.familie.ks.sak.kjerne.personopplysninggrunnlag.domene.PersonType
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -61,36 +61,37 @@ class AndelerTilkjentYtelseOgEndreteUtbetalingerServiceTest {
         val fom = YearMonth.now().minusMonths(6)
         val tom = YearMonth.now().plusMonths(5)
         every { andelTilkjentYtelseRepository.finnAndelerTilkjentYtelseForBehandling(behandling.id) } returns
-            listOf(
-                lagAndelTilkjentYtelse(
-                    behandling = behandling,
-                    aktør = søker,
-                    stønadFom = fom,
-                    stønadTom = tom
+                listOf(
+                    lagAndelTilkjentYtelse(
+                        behandling = behandling,
+                        aktør = søker,
+                        stønadFom = fom,
+                        stønadTom = tom
+                    )
                 )
-            )
 
-        every { endretUtbetalingAndelRepository.findByBehandlingId(behandling.id) } returns
-            listOf(
-                // overlappende periode, kommer med andelTilkjentYtelse
-                lagEndretUtbetalingAndel(
-                    behandlingId = behandling.id,
-                    person = søkerPerson,
-                    prosent = BigDecimal(100),
-                    periodeFom = YearMonth.now().minusMonths(2),
-                    periodeTom = YearMonth.now().minusMonths(1)
-                ),
-                // ikke overlappende perioder, kommer ikke med andelTilkjentYtelse
-                lagEndretUtbetalingAndel(
-                    behandlingId = behandling.id,
-                    person = søkerPerson,
-                    prosent = BigDecimal(100),
-                    periodeFom = YearMonth.now().minusMonths(10),
-                    periodeTom = YearMonth.now().minusMonths(9)
+        every { endretUtbetalingAndelRepository.hentEndretUtbetalingerForBehandling(behandling.id) } returns
+                listOf(
+                    // overlappende periode, kommer med andelTilkjentYtelse
+                    lagEndretUtbetalingAndel(
+                        behandlingId = behandling.id,
+                        person = søkerPerson,
+                        prosent = BigDecimal(100),
+                        periodeFom = YearMonth.now().minusMonths(2),
+                        periodeTom = YearMonth.now().minusMonths(1)
+                    ),
+                    // ikke overlappende perioder, kommer ikke med andelTilkjentYtelse
+                    lagEndretUtbetalingAndel(
+                        behandlingId = behandling.id,
+                        person = søkerPerson,
+                        prosent = BigDecimal(100),
+                        periodeFom = YearMonth.now().minusMonths(10),
+                        periodeTom = YearMonth.now().minusMonths(9)
+                    )
                 )
-            )
 
-        val andeler = andelerTilkjentYtelseOgEndreteUtbetalingerService.finnAndelerTilkjentYtelseMedEndreteUtbetalinger(behandling.id)
+        val andeler =
+            andelerTilkjentYtelseOgEndreteUtbetalingerService.finnAndelerTilkjentYtelseMedEndreteUtbetalinger(behandling.id)
         assertTrue { andeler.size == 1 }
 
         val andelTilkjentYtelse = andeler[0].andel
@@ -126,17 +127,17 @@ class AndelerTilkjentYtelseOgEndreteUtbetalingerServiceTest {
                 )
             )
 
-        every { endretUtbetalingAndelRepository.findByBehandlingId(behandling.id) } returns
-            listOf(
-                // overlappende periode, kommer med andelTilkjentYtelse
-                lagEndretUtbetalingAndel(
-                    behandlingId = behandling.id,
-                    person = søkerPerson,
-                    prosent = BigDecimal(100),
-                    periodeFom = fom,
-                    periodeTom = tom
+        every { endretUtbetalingAndelRepository.hentEndretUtbetalingerForBehandling(behandling.id) } returns
+                listOf(
+                    // overlappende periode, kommer med andelTilkjentYtelse
+                    lagEndretUtbetalingAndel(
+                        behandlingId = behandling.id,
+                        person = søkerPerson,
+                        prosent = BigDecimal(100),
+                        periodeFom = fom,
+                        periodeTom = tom
+                    )
                 )
-            )
         val personResultatForBarn1 = PersonResultat(vilkårsvurdering = vilkårsvurdering, aktør = barn1)
         val vilkårResultaterForBarn1 = lagVilkårResultaterForDeltBosted(
             personResultat = personResultatForBarn1,
