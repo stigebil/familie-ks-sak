@@ -38,6 +38,8 @@ class UtbetalingsoppdragService(
             saksbehandlerId,
             andelTilkjentYtelseForUtbetalingsoppdragFactory
         )
+        beregningService.lagreTilkjentYtelseMedOppdaterteAndeler(tilkjentYtelse)
+
         val utbetalingsoppdrag =
             objectMapper.readValue(tilkjentYtelse.utbetalingsoppdrag, Utbetalingsoppdrag::class.java)
 
