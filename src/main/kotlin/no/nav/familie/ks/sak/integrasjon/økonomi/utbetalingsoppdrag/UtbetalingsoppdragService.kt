@@ -75,7 +75,6 @@ class UtbetalingsoppdragService(
     fun hentStatus(oppdragId: OppdragId): OppdragStatus =
         oppdragKlient.hentStatus(oppdragId)
 
-    @Transactional
     fun genererUtbetalingsoppdragOgOppdaterTilkjentYtelse(
         vedtak: Vedtak,
         saksbehandlerId: String,
