@@ -131,7 +131,6 @@ class UtbetalingsoppdragGenerator {
         // oppdater tilkjentYtlese med andelerTilkjentYTelser og utbetalingsoppdrag
         val nyAndelTilkjentYtelserEtterMutering =
             tilkjentYtelse.andelerTilkjentYtelse.map { lagNyAndelTilkjentYtelseEtterMutering(it) }
-        tilkjentYtelse.andelerTilkjentYtelse.clear()
 
         return tilkjentYtelse.copy(
             andelerTilkjentYtelse = nyAndelTilkjentYtelserEtterMutering.toMutableSet(),
