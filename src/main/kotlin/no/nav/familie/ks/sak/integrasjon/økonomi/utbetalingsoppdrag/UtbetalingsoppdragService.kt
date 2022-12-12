@@ -42,7 +42,8 @@ class UtbetalingsoppdragService(
             objectMapper.readValue(tilkjentYtelse.utbetalingsoppdrag, Utbetalingsoppdrag::class.java)
 
         // lagre tilkjent ytelse
-        val oppdatertTilkjentYtelse = beregningService.populerTilkjentYtelse(oppdatertBehandling, utbetalingsoppdrag)
+        val oppdatertTilkjentYtelse =
+            beregningService.populerTilkjentYtelse(oppdatertBehandling, utbetalingsoppdrag, tilkjentYtelse)
         beregningService.lagreTilkjentYtelseMedOppdaterteAndeler(oppdatertTilkjentYtelse)
 
         tilkjentYtelseValideringService.validerIngenAndelerTilkjentYtelseMedSammeOffsetIBehandling(behandlingId = vedtak.behandling.id)

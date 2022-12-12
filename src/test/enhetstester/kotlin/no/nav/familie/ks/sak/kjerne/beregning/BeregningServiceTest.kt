@@ -346,7 +346,7 @@ class BeregningServiceTest {
         val andelTilkjentYtelse = lagAndelTilkjentYtelse(behandling = behandling)
         val opphørDato = LocalDate.now()
 
-        every { tilkjentYtelseRepository.hentTilkjentYtelseForBehandling(any()) } returns lagTilkjentYtelse(
+        val mocketTilkjentYtelse = lagTilkjentYtelse(
             mockk(),
             mockk()
         ).also {
@@ -354,6 +354,8 @@ class BeregningServiceTest {
                 andelTilkjentYtelse
             )
         }
+
+        every { tilkjentYtelseRepository.hentTilkjentYtelseForBehandling(any()) } returns mocketTilkjentYtelse
 
         val utbetalingsoppdrag = lagUtbetalingsoppdrag(
             listOf(
@@ -368,7 +370,8 @@ class BeregningServiceTest {
 
         val oppdatertTilkjentYtelse = beregningService.populerTilkjentYtelse(
             behandling,
-            utbetalingsoppdrag
+            utbetalingsoppdrag,
+            mocketTilkjentYtelse
         )
         assertNull(oppdatertTilkjentYtelse.stønadFom)
         assertEquals(andelTilkjentYtelse.stønadTom, oppdatertTilkjentYtelse.stønadTom)

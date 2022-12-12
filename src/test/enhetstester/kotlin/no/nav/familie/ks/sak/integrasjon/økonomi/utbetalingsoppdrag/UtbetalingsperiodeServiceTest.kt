@@ -60,7 +60,7 @@ internal class UtbetalingsperiodeServiceTest {
             )
         } returns mockk()
         every { beregningService.hentSisteOffsetPåFagsak(any()) } returns mockk()
-        every { beregningService.populerTilkjentYtelse(any(), any()) } returns mockk()
+        every { beregningService.populerTilkjentYtelse(any(), any(), any()) } returns mockk()
         every { beregningService.lagreTilkjentYtelseMedOppdaterteAndeler(any()) } returns mockk()
         every { tilkjentYtelseValideringService.validerIngenAndelerTilkjentYtelseMedSammeOffsetIBehandling(any()) } just runs
         every { oppdragKlient.iverksettOppdrag(any()) } returns ""

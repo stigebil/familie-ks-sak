@@ -127,7 +127,8 @@ class BeregningService(
     // Har ikke klart å identifisere at opphørFom på TilkjentYtelse faktisk brukes til noe, så mulig mye av logikken her kan fjernes, men har latt det være slik det er i BA inntil videre.
     fun populerTilkjentYtelse(
         behandling: Behandling,
-        utbetalingsoppdrag: Utbetalingsoppdrag
+        utbetalingsoppdrag: Utbetalingsoppdrag,
+        tilkjentYtelse: TilkjentYtelse
     ): TilkjentYtelse {
         val erRentOpphør =
             utbetalingsoppdrag.utbetalingsperiode.isNotEmpty() && utbetalingsoppdrag.utbetalingsperiode.all { it.opphør != null }
@@ -142,9 +143,6 @@ class BeregningService(
                 opphørsdato = opphørPåRevurdering.maxByOrNull { it.opphør!!.opphørDatoFom }!!.opphør!!.opphørDatoFom
             }
         }
-
-        val tilkjentYtelse =
-            tilkjentYtelseRepository.hentTilkjentYtelseForBehandling(behandling.id)
 
         return tilkjentYtelse.apply {
             this.utbetalingsoppdrag = objectMapper.writeValueAsString(utbetalingsoppdrag)
