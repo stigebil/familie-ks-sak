@@ -50,7 +50,7 @@ class HentStatusFraOppdragTask(
 
         when (statusFraOppdrag) {
             OppdragStatus.LAGT_PÅ_KØ -> {
-                if (statusFraOppdragDto.behandlingsId == 1004598L) {
+                if (statusFraOppdragDto.behandlingsId in listOf(1014598L, 1014541L, 1014252L)) {
                     stegService.utførStegEtterIverksettelseAutomatisk(statusFraOppdragDto.behandlingsId)
                 } else throw RekjørSenereException(
                     årsak = "Mottok ${statusFraOppdrag.name} fra oppdrag.",
