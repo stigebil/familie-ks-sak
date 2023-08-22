@@ -154,14 +154,15 @@ class StegService(
     ): BehandlingSteg {
         val nesteGyldigeStadier = BehandlingSteg.values().filter {
             it.sekvens > behandledeSteg.sekvens &&
-                behandling.opprettetÅrsak in it.gyldigForÅrsaker
+                behandling.opprettetÅrsak in it.gyldigForÅrsaker &&
+                behandling.resultat in it.gyldigForResultater
         }.sortedBy { it.sekvens }
         return when (behandledeSteg) {
             AVSLUTT_BEHANDLING -> throw Feil("Behandling ${behandling.id} er allerede avsluttet")
             BESLUTTE_VEDTAK -> {
                 val beslutteVedtakDto = behandlingStegDto as BesluttVedtakDto
                 when (beslutteVedtakDto.beslutning) {
-                    Beslutning.GODKJENT -> hentNesteStegEtterBeslutteVedtak(behandling)
+                    Beslutning.GODKJENT -> hentNesteStegOgOpprettTaskEtterBeslutteVedtak(behandling)
                     Beslutning.UNDERKJENT -> BehandlingSteg.VEDTAK
                 }
             }
@@ -169,10 +170,14 @@ class StegService(
         }
     }
 
-    private fun hentNesteStegEtterBeslutteVedtak(behandling: Behandling): BehandlingSteg {
+    private fun hentNesteStegOgOpprettTaskEtterBeslutteVedtak(behandling: Behandling): BehandlingSteg {
         return when {
             behandling.erTekniskEndring() -> if (behandling.resultat.kanIkkeSendesTilOppdrag()) AVSLUTT_BEHANDLING else IVERKSETT_MOT_OPPDRAG
-            behandling.resultat.kanIkkeSendesTilOppdrag() -> JOURNALFØR_VEDTAKSBREV
+            behandling.resultat.kanIkkeSendesTilOppdrag() -> {
+                opprettJournalførVedtaksbrevTaskPåBehandling(behandling)
+                JOURNALFØR_VEDTAKSBREV
+            }
+
             else -> IVERKSETT_MOT_OPPDRAG
         }
     }
@@ -207,13 +212,17 @@ class StegService(
         when (behandling.steg) {
             JOURNALFØR_VEDTAKSBREV -> {
                 // JournalførVedtaksbrevTask -> DistribuerBrevTask -> AvsluttBehandlingTask for å avslutte behandling automatisk
-                val vedtakId = vedtakRepository.findByBehandlingAndAktiv(behandling.id).id
-                taskService.save(JournalførVedtaksbrevTask.opprettTask(behandling, vedtakId))
+                opprettJournalførVedtaksbrevTaskPåBehandling(behandling)
             }
             // Behandling med årsak SATSENDRING eller TEKNISK_ENDRING sender ikke vedtaksbrev. Da avslutter behandling her
             AVSLUTT_BEHANDLING -> utførSteg(behandlingId = behandling.id, AVSLUTT_BEHANDLING)
             else -> {} // Gjør ingenting
         }
+    }
+
+    private fun opprettJournalførVedtaksbrevTaskPåBehandling(behandling: Behandling) {
+        val vedtakId = vedtakRepository.findByBehandlingAndAktiv(behandling.id).id
+        taskService.save(JournalførVedtaksbrevTask.opprettTask(behandling, vedtakId))
     }
 
     fun settBehandlingstegPåVent(

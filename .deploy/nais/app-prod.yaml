@@ -81,6 +81,7 @@ spec:
         - application: familie-klage
           cluster: prod-gcp
       external:
+        - host: nav-prod-kafka-nav-prod.aivencloud.com
         - host: xsrv1mh6.api.sanity.io
         - host: pdl-api.prod-fss-pub.nais.io
         - host: familie-integrasjoner.prod-fss-pub.nais.io
@@ -90,11 +91,9 @@ spec:
   replicas:
     min: 2
     max: 4
-    cpuThresholdPercentage: 50
   resources:
     limits:
       memory: 4096Mi
-      cpu: "4"
     requests:
       memory: 512Mi
       cpu: 500m
