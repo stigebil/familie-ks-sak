@@ -18,6 +18,7 @@ import no.nav.familie.ks.sak.kjerne.beregning.domene.AndelTilkjentYtelseReposito
 import no.nav.familie.ks.sak.kjerne.beregning.domene.TilkjentYtelse
 import no.nav.familie.ks.sak.kjerne.beregning.domene.TilkjentYtelseRepository
 import no.nav.familie.ks.sak.kjerne.endretutbetaling.domene.EndretUtbetalingAndel
+import no.nav.familie.ks.sak.kjerne.eøs.differanseberegning.TilkjentYtelseEndretAbonnent
 import no.nav.familie.ks.sak.kjerne.fagsak.FagsakService
 import no.nav.familie.ks.sak.kjerne.personident.Aktør
 import no.nav.familie.ks.sak.kjerne.personopplysninggrunnlag.domene.PersonopplysningGrunnlag
@@ -34,6 +35,7 @@ class BeregningService(
     private val behandlingRepository: BehandlingRepository,
     private val andelerTilkjentYtelseOgEndreteUtbetalingerService: AndelerTilkjentYtelseOgEndreteUtbetalingerService,
     private val fagsakService: FagsakService,
+    private val tilkjentYtelseEndretAbonnenter: List<TilkjentYtelseEndretAbonnent> = emptyList(),
 ) {
     /**
      * Henter alle barn på behandlingen som har minst en periode med tilkjentytelse.
@@ -87,7 +89,10 @@ class BeregningService(
                 endreteUtbetalingAndeler,
             )
 
-        tilkjentYtelseRepository.save(tilkjentYtelse)
+        tilkjentYtelseRepository.save(tilkjentYtelse).also { lagretTilkjentYtelse,
+            ->
+            tilkjentYtelseEndretAbonnenter.forEach { it.endretTilkjentYtelse(lagretTilkjentYtelse) }
+        }
     }
 
     /**
